@@ -1,0 +1,34 @@
+version: "3"
+
+services:
+  eureka1:
+    build: ./eureka-registry-ms
+    image: spring-cloud-ms/eureka-registry-ms
+    hostname: eureka1
+    container_name: spring-cloud-ms-eureka1
+    ports:
+      - "8762:8762"
+    environment:
+      - TZ=Asia/Shanghai
+    command: "--spring.profiles.active=peer1"
+
+  eureka2:
+    build: ./eureka-registry-ms
+    image: spring-cloud-ms/eureka-registry-ms
+    hostname: eureka2
+    container_name: spring-cloud-ms-eureka2
+    ports:
+      - "8763:8763"
+    environment:
+      - TZ=Asia/Shanghai
+    command: "--spring.profiles.active=peer2"
+
+  admin-ms:
+    build: ./spring-boot-admin-ms
+    image: spring-cloud-ms/spring-boot-admin-ms
+    hostname: spring-boot-admin
+    container_name: spring-boot-admin
+    ports:
+      - "7030:7030"
+    environment:
+      - TZ=Asia/Shanghai

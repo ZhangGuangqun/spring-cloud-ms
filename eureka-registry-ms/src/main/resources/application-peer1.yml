@@ -1,0 +1,32 @@
+server:
+  port: 8762
+
+spring:
+  profiles: peer1
+  application:
+    name: 'registry'
+  security:
+    user:
+      name: admin
+      password: admin
+
+eureka:
+  instance:
+    hostname: eureka1
+    metadata-map:
+      user.name: ${spring.security.user.password}
+      user.password: ${spring.security.user.password}
+  client:
+    serviceUrl:
+      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@eureka2:8763/eureka/
+    fetch-registry: true
+    register-with-eureka: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS

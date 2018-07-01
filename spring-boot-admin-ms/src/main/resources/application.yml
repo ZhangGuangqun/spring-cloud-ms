@@ -1,0 +1,33 @@
+server:
+  port: 7030
+
+eureka:
+  client:
+    service-url:
+      defaultZone: 'http://admin:admin@eureka1:8762/eureka/,http://admin:admin@eureka2:8763/eureka/'
+    registry-fetch-interval-seconds: 5
+  instance:
+    metadata-map:
+      user.name: ${spring.security.user.name}
+      user.password: ${spring.security.user.password}
+
+spring:
+  application:
+    name: 'spring-boot-admin'
+  cloud:
+    loadbalancer:
+      retry:
+        enabled: true
+  security:
+    user:
+      name: admin
+      password: password
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
